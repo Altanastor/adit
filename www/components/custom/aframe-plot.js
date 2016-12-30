@@ -89,14 +89,9 @@ AFRAME.registerComponent('plot', {
         mapping = this.axis,
         dat = this.plotEl.getAttribute('plot');
     type = this.components['plot-axis'] ? 'plot-axis' : 'plot-guide';
-    attr = this.getAttribute(type);
-    this.setAttribute(type, 
-      AFRAME.utils.extend({}, attr, {
-        breaks: dat[mapping + 'breaks'],
-        labels: dat[mapping + 'labels'],
-        name: dat[mapping + 'name']
-      })
-    );
+    this.setAttribute(type, { breaks: dat[mapping + 'breaks'],
+                              labels: dat[mapping + 'labels'],
+                              name: dat[mapping + 'name'] });
   },
   // override automatic shape determination so that the bounding area
   // does not include children (guides/scales)
