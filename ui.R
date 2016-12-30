@@ -17,19 +17,20 @@ shinyUI(fluidPage(
   
   # AFRAME scripts
   tags$head(
+    # libraries
     #tags$script(src = "aframe.js"),
     tags$script(src = "cannon.js"),
-    tags$script(src = "components/ground.js"),
-    tags$script(src = "shaders/skyGradient.js"),
-    #tags$script(src = "components/aframe-layout-component.js"),
-    tags$script(src = "components/kframe.js"),
+    # external A-Frame components
+    #tags$script(src = "components/kframe.js"),
+    tags$script(src = "components/aframe-animation-component.js"),
+    tags$script(src = "components/aframe-layout-component.js"),
+    tags$script(src = "components/aframe-sun-sky.js"),
     tags$script(src = "components/aframe-bmfont-text-component.js"),
-    tags$script(src = "components/aframe-draw-component.js"),
-    tags$script(src = "components/aframe-textwrap-component.js"),
-    tags$script(src = "components/data-frame.js"),
-    tags$script(src = "components/data-frame-column.js"),
     tags$script(src = "components/aframe-physics-system.js"),
     tags$script(src = "components/aframe-extras.js"),
+    # custom components
+    tags$script(src = "components/data-frame.js"),
+    tags$script(src = "components/data-frame-column.js"),
     tags$script(src = "components/aframe-physics-sleepy.js"),
     tags$script(src = "components/aframe-physics-collision-filter.js"),
     tags$script(src = "components/aframe-stretch.js"),
