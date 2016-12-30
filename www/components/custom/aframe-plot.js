@@ -87,9 +87,9 @@ AFRAME.registerComponent('plot', {
   updateScale: function() {
     var type, attr, 
         mapping = this.axis,
-        dat = this.plotEl.getComputedAttribute('plot');
+        dat = this.plotEl.getAttribute('plot');
     type = this.components['plot-axis'] ? 'plot-axis' : 'plot-guide';
-    attr = this.getComputedAttribute(type);
+    attr = this.getAttribute(type);
     this.setAttribute(type, 
       AFRAME.utils.extend({}, attr, {
         breaks: dat[mapping + 'breaks'],
@@ -104,9 +104,9 @@ AFRAME.registerComponent('plot', {
     if(evt && evt.target !== this.el) return;
     var shape,
         size = new THREE.Vector3(),
-        geom = this.el.getComputedAttribute('geometry');
+        geom = this.el.getAttribute('geometry');
     size.multiplyVectors(
-      this.el.getComputedAttribute('scale'),
+      this.el.getAttribute('scale'),
       new THREE.Vector3(geom.width, geom.height, geom.depth).multiplyScalar(0.5)
     );
     shape = new CANNON.Box(new CANNON.Vec3().copy(size));

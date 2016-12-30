@@ -90,9 +90,9 @@ AFRAME.registerComponent('stretch', {
     var hitEl = this.hitEl;
     if (!hitEl) { return; }
     var scale = new CANNON.Vec3(),
-        hitElGeom = hitEl.getComputedAttribute('geometry');
+        hitElGeom = hitEl.getAttribute('geometry');
     this.updateDelta();
-    scale = scale.copy(hitEl.getComputedAttribute('scale'));
+    scale = scale.copy(hitEl.getAttribute('scale'));
     scale.scale(this.deltaStretch, scale);
     hitEl.setAttribute('scale', scale);
     // force scale update for physics body
@@ -111,9 +111,9 @@ AFRAME.registerComponent('stretch', {
 
   updateDelta: function () {
     var currentPosition = new THREE.Vector3();
-    currentPosition.copy(this.el.getComputedAttribute('position'));
+    currentPosition.copy(this.el.getAttribute('position'));
     var otherHandPos = new THREE.Vector3();
-    otherHandPos.copy(this.otherController.getComputedAttribute('position'));
+    otherHandPos.copy(this.otherController.getAttribute('position'));
     var currentStretch = currentPosition.distanceTo(otherHandPos);
     var previousStretch = this.previousStretch || currentStretch;
     var deltaStretch = currentStretch / previousStretch;

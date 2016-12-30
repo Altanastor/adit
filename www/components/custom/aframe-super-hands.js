@@ -88,19 +88,19 @@
       var rotation = new THREE.Vector3();
       if (!hitEl) { return; }
       this.updateDelta();
-      //position = hitEl.getComputedAttribute('position');
-      position.copy(hitEl.getComputedAttribute('position'));
+      //position = hitEl.getAttribute('position');
+      position.copy(hitEl.getAttribute('position'));
       hitEl.setAttribute('position', position.add(this.deltaPosition));
-      rotation.copy(hitEl.getComputedAttribute('rotation'));
+      rotation.copy(hitEl.getAttribute('rotation'));
       hitEl.setAttribute('rotation', rotation.add(this.deltaRotation));
 
     },
     
     updateDelta: function () {
       var currentPosition = new THREE.Vector3();
-      currentPosition.copy(this.el.getComputedAttribute('position'));
+      currentPosition.copy(this.el.getAttribute('position'));
       var currentRotation = new THREE.Vector3();
-      currentRotation.copy(this.el.getComputedAttribute('rotation'));
+      currentRotation.copy(this.el.getAttribute('rotation'));
       var previousPosition = this.previousPosition || currentPosition;
       var previousRotation = this.previousRotation || currentRotation;
       var deltaPosition = new THREE.Vector3();

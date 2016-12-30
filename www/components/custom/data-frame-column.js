@@ -35,8 +35,8 @@ AFRAME.registerComponent('data-frame-column', {
   },
   
   update: function () {
-    this.homePos = this.el.getComputedAttribute('position');
-    this.homeRot = this.el.getComputedAttribute('rotation');
+    this.homePos = this.el.getAttribute('position');
+    this.homeRot = this.el.getAttribute('rotation');
   },
   
   returnHome: function (evt) {

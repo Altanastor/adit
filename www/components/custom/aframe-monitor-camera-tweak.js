@@ -3,7 +3,7 @@
 AFRAME.registerComponent('monitor-camera-tweak', {
   dependencies: ['position'],
   init: function() {
-    this.offsetPos  = this.el.getComputedAttribute('position');
+    this.offsetPos  = this.el.getAttribute('position');
     this.tweakCameraB = this.tweakCamera.bind(this);
     this.unTweakCameraB = this.unTweakCamera.bind(this);
   },
