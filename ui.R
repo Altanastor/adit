@@ -38,6 +38,7 @@ shinyUI(fluidPage(
     tags$script(src = "components/custom/aframe-drag-drop.js"),
     tags$script(src = "components/custom/aframe-physics-collider.js"),
     tags$script(src = "components/custom/aframe-monitor-camera-tweak.js"),
+    tags$script(src = "components/custom/aframe-event-state-component.js"),
     tags$style("#vrcontent {height: 600px;}"),
     # activate the warnings block after the window is loaded, so that they don't
     # appear erroneously for a second while shiny is initalizing
@@ -120,7 +121,7 @@ shinyUI(fluidPage(
   aframeScene(
     id = "vrcontent",
     embedded = "",
-    physics = "gravity: 0;",
+    physics = "gravity: 0; debug: true;",
     fog = "color: #cccccc; near: 0; far: 65;",
     aframeAssets(
       tags$img(id = "arrow", src = "textures/arrow.png"),
@@ -135,11 +136,15 @@ shinyUI(fluidPage(
       aframeMixin(id = "plottheme-grabbed", material = "color: #F2E646;"),
       aframeMixin(
         id = "controller",
+        grab = "", stretch = "", `drag-drop` = "", 
+        `event-state` = "event: model-loaded; state: loaded"
+      ),
+      aframeMixin(
+        id = "controller-loaded",
         `static-body`="shape: sphere; sphereRadius: 0.02;",
         `physics-collider` = "",
         `collision-filter` = paste("collidesWith: default, plots,",
-                                   "datacolumn, plotaxis, notplots;"),
-        grab = "", stretch = "", `drag-drop` = ""
+                                   "datacolumn, plotaxis, notplots;")
       ),
       atags$mixin(id = "datacolumn", `dynamic-body` = "", sleepy = "",
                   `collision-filter` = "group: datacolumn;",

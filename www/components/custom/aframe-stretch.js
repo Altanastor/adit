@@ -20,7 +20,8 @@ AFRAME.registerComponent('stretch', {
       this.el.sceneEl.addEventListener('loaded', 
         this.findOtherController.bind(this));
     }
-    
+    this.el.sceneEl.addEventListener('controllersupdated', 
+                                     this.findOtherController.bind(this));
     // Bind event handlers
     this.onHit = this.onHit.bind(this);
     this.onGripOpen = this.onGripOpen.bind(this);
@@ -28,7 +29,7 @@ AFRAME.registerComponent('stretch', {
   },
   
   findOtherController: function () {
-    
+    if(!this.el.components["tracked-controls"]) return; //controllers not yet on
     me = this.el.components["tracked-controls"].controller;
     controllers = document.querySelectorAll("[tracked-controls]");
     for(var [id, node] of controllers.entries()) { 
