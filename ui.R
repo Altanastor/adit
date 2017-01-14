@@ -58,10 +58,12 @@ shinyUI(fluidPage(
         "and size legends.",
         "Examine your plot by grabbing it to move and rotate, stretching with",
         "two hands to scale, or releasing with with a twist to animate.",
-        tags$br(),
-        "Visit the",
-        tags$a(href = "https://github.com/wmurphyrd/adit", "Adit GitHib page"), 
-        "for more info.")
+        "If you do not have VR, you can",
+        tags$a(href = "https://youtu.be/vy8e8zIi4qw", 
+               "view a video of Adit in action."),
+        tags$br(), "You can also Visit the",
+        tags$a(href = "https://github.com/wmurphyrd/adit", "Adit GitHub page"), 
+        "for the source code and more info.")
     ),
     column(
       6, offset = 1,
@@ -104,6 +106,7 @@ shinyUI(fluidPage(
     )
   ),
   tags$div(id = "warningsContainer", style = "display: none;",
+    HTML(readLines("html/hackathon.HTML")),
     conditionalPanel(
       "!window.hasNativeWebVRImplementation", 
       HTML(readLines("html/oldbrowserwarn.HTML"))
