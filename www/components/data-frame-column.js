@@ -11,8 +11,9 @@ AFRAME.registerComponent('data-frame-column', {
   init: function () {
     var label = this.data.name,
         width = 0.5, height = 0.085;
-    this.el.setAttribute('width' , width);
-    this.el.setAttribute('height', height);
+    this.el.setAttribute('geometry', 'primitive: plane; width: ' + 
+      width + '; height: ' + height);
+    
     this.text = document.createElement('a-entity');
     this.el.appendChild(this.text);
     this.text.setAttribute('scale', '0.2 0.2 0.2');
@@ -31,7 +32,6 @@ AFRAME.registerComponent('data-frame-column', {
     this.el.addEventListener('animationstart', function(evt){console.log(evt);});
     this.el.addEventListener('animationend', function(evt){console.log(evt);});*/
     this.el.addEventListener('stateremoved', this.returnHome.bind(this));
-
   },
   
   update: function () {
