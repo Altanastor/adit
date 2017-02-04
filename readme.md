@@ -59,17 +59,16 @@ in offering this experience. I will be updating A-Frame to v0.4.0 in
 the near future.
 
 WebVR is still experimental and only available in test versions of browsers. 
-Currently, only [Chromium](https://webvr.info/get-chrome/) 
-supports the full experience with hand controllers. Also, I'm recommending
-[the September 23rd archived Chromium build](https://drive.google.com/drive/folders/0BzudLt22BqGRbHdGOTdiaTBkZXM) 
-for Adit because the latest version doesn't always get along with physics. 
-
-After installing Chromium, you **must** enable two options for WebVR to work:
-
-* chrome://flags/#enable-webvr
-* chrome://flags/#enable-gamepad-extensions
+Due to a new issue with Chromium, currently only Firefox Nightly is available 
+for the full desktop WebVR experience. Head on over to [webvr.rocks](https://webvr.rocks/firefox) for downloads and setup instructions.
 
 ### Features and Updates
+
+February 2, 2017
+
+* Added Firefox Nightly support
+
+Original Release
 
 * File uploader control to provide your own data
 * Guides for color, shape, and size
