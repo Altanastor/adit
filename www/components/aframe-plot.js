@@ -22,8 +22,10 @@ AFRAME.registerComponent('plot', {
     sizelabels: { default: [] }
   },
   init: function() {
-    var self = this;
-    var size = this.data.size;
+    var self = this,
+        size = this.data.size,
+        styleStringi = AFRAME.utils.styleParser.stringify,
+        coordStringi = AFRAME.utils.coordinates.stringify;
     this.updatePending = false;
     self.axes = [];
     this.guides = [];
@@ -35,24 +37,25 @@ AFRAME.registerComponent('plot', {
     ['x', 'y', 'z'].forEach(function (axis) {
       var axEl = document.createElement('a-entity');
       self.el.appendChild(axEl);
-      axEl.setAttribute('plot-axis', { axis: axis, size: size });
       axEl.plotEl = self.el;
       self.axes.push(axEl);
+      axEl.setAttribute('plot-axis', 
+        styleStringi({ axis: axis, size: size }));
     });
     this.guideArea = document.createElement('a-entity');
     this.el.append(this.guideArea);
-    this.guideArea.setAttribute('position', {
+    this.guideArea.setAttribute('position', coordStringi({
       x: size / -2, y: size / -2, z: size / -2
-    });
+    }));
     this.guideArea.setAttribute('rotation', '0 -45 0');
     this.guideArea.setAttribute('layout', 
                                 'type: box; margin: ' + ((size - 0.04) / 3));
     ['color', 'shape', 'size'].forEach( (guide) => {
       var guideEl = document.createElement('a-entity');
       this.guideArea.appendChild(guideEl);
-      guideEl.setAttribute('plot-guide', { 
+      guideEl.setAttribute('plot-guide', styleStringi({ 
         aesthetic: guide, size: (size - 0.15) / 3
-      });
+      }));
       guideEl.plotEl = this.el;
       this.guides.push(guideEl);
     });
@@ -68,20 +71,19 @@ AFRAME.registerComponent('plot', {
     var dat = this.data;
     this.plotArea.setAttribute('plot-area', { points: this.data.points });
     this.axes.forEach( (ax) => {
-      if(!ax.components['plot-axis'].data) {
+      if(!ax.components['plot-axis'].initialized) {
         ax.addEventListener('loaded', this.updateScale); 
       } else {
         this.updateScale.bind(ax)();
       }
     });
     this.guides.forEach( (guide) => {
-      if(!guide.components['plot-guide'].data) {
+      if(!guide.components['plot-guide'].initialized) {
         guide.addEventListener('loaded', this.updateScale); 
         return; 
       }
       this.updateScale.bind(guide)();
     });
-    
   },
   // called when bound to a child scale/guide element
   updateScale: function() {
@@ -115,7 +117,7 @@ AFRAME.registerComponent('plot', {
     this.el.body.shapes.pop();
     this.el.body.addShape(shape);  
     
-  }
+  } 
 });
 
 // manages scale labels and receiving user mapping input
@@ -134,8 +136,9 @@ AFRAME.registerComponent('plot-axis', {
   },
   init: function () {
     // create axis drop-targets for mapping UI
-    var vec3 = AFRAME.utils.coordinates.parse;
-    var pos = vec3('0 0 0'), 
+    var vec3 = AFRAME.utils.coordinates.parse,
+        stringi = AFRAME.utils.styleParser.stringify,
+        pos = vec3('0 0 0'), 
         rot = vec3('0 0 0'), 
         pos2 = vec3('0 0 0'), 
         rot2 = vec3('0 0 0'),
@@ -148,19 +151,13 @@ AFRAME.registerComponent('plot-axis', {
     // counter keeps hover events working when the collide zones overlap
     this.numHovered = 0;
     this.el.axis = compDat.axis;
-    this.axis = document.createElement('a-entity');
-    this.el.appendChild(this.axis);
-    this.mirror = document.createElement('a-entity');
-    this.el.appendChild(this.mirror);
-    this.axisScale = document.createElement('a-entity');
-    this.el.appendChild(this.axisScale);
- 
-    makeAxis = function(el, pos, rot) {
+
+    makeAxis = function(el, pos, rot, compDat) {
       el.className = compDat.hoverClass;
       el.axis = compDat.axis;
-      el.setAttribute('geometry', { primitive: 'plane',
-                                    width: compDat.size,
-                                    height: compDat.size });
+      el.setAttribute('geometry', { primitive: 'plane', 
+                                            width: compDat.size, 
+                                            height: compDat.size });
       el.setAttribute('material', compDat.material);
       el.setAttribute('material', 'visible', false);
       el.setAttribute('position', pos);
@@ -202,18 +199,29 @@ AFRAME.registerComponent('plot-axis', {
         posText.x = -1 * compDat.size / 2 - 0.015;
         rotText.z = -45;
     }
-    
-    makeAxis(this.axis, pos, rot);
-    makeAxis(this.mirror, pos2, rot2);
-    this.axisScale.setAttribute('plot-axis-text',{
-      name: compDat.name,
-      labels: compDat.labels, 
-      breaks: compDat.breaks, 
-      fontScale: compDat.fontScale,
-      axis: this.data.axis
+    this.axis = document.createElement('a-entity');
+    this.axis.addEventListener('loaded', evt => {
+      makeAxis(this.axis, pos, rot, compDat);
+    }, { once: true });
+    this.el.appendChild(this.axis);
+    this.mirror = document.createElement('a-entity');
+    this.mirror.addEventListener('loaded', evt => {
+      makeAxis(this.mirror, pos2, rot2, compDat);
+    }, { once: true });
+    this.el.appendChild(this.mirror);
+    this.axisScale = document.createElement('a-entity');
+    this.axisScale.addEventListener('loaded', evt => {
+      this.axisScale.setAttribute('plot-axis-text', {
+        name: compDat.name,
+        labels: compDat.labels, 
+        breaks: compDat.breaks, 
+        fontScale: compDat.fontScale,
+        axis: compDat.axis
+      });
+      this.axisScale.setAttribute('position', posText);
+      this.axisScale.setAttribute('rotation', rotText);
     });
-    this.axisScale.setAttribute('position', posText);
-    this.axisScale.setAttribute('rotation', rotText);
+    this.el.appendChild(this.axisScale);
   },
   
 
@@ -336,7 +344,7 @@ AFRAME.registerComponent('plot-axis-text', {
                              
     var namePos = [0, this.offset(2), this.offset(2)];
     if(this.data.axis == 'y') {
-      namePos[1] = this.el.parentEl.components['plot-axis'].data.size / 2 - 
+      namePos[1] = this.el.parentNode.components['plot-axis'].data.size / 2 - 
                     this.offset(2);
     } else if(this.data.axis == 'z') {
       namePos[0] = -this.offset(2);
@@ -417,7 +425,9 @@ AFRAME.registerComponent('plot-guide', {
     fontScale: { default: 0.12 }
   },
   init: function() {
-    var ymarg = 0.02;
+    var ymarg = 0.02,
+        styleStringi = AFRAME.utils.styleParser.stringify,
+        coordStringi = AFRAME.utils.coordinates.stringify;
     this.defaults = { 
       width: 0.01, height: 0.01, depth: 0.01, radius: 0.005, 
       'radius-bottom': 0.005, 'radius-top': 0.001, 'radius-tubular': 0.001,
@@ -431,13 +441,13 @@ AFRAME.registerComponent('plot-guide', {
     // aesthetic mapping to pass to shiny
     this.hoverEl.axis = this.data.aesthetic;  
     this.hoverEl.className += ' hoverable';
-    this.hoverEl.setAttribute('position', {
+    this.hoverEl.setAttribute('position', coordStringi({
       x: -this.data.size,
       y: this.data.size / 2 + ymarg / 2 + 0.0175,
       z: -0.0151
-    });
-    this.hoverEl.setAttribute('width', this.data.size * 2);
-    this.hoverEl.setAttribute('height', this.data.size + 0.04);
+    }));
+    this.hoverEl.setAttribute('width', '' + this.data.size * 2);
+    this.hoverEl.setAttribute('height', '' + this.data.size + 0.04);
     this.hoverEl.setAttribute('color', 'white');
     this.hoverEl.setAttribute('static-body', '');
     this.hoverEl.setAttribute('visible', 'false');
@@ -445,14 +455,14 @@ AFRAME.registerComponent('plot-guide', {
     this.nameEl = document.createElement('a-entity');
     this.el.appendChild(this.nameEl);
     //this.nameEl.setAttribute('rotation', '0 0 90');
-    this.nameEl.setAttribute('position', {
-      x: -0.2, y: this.data.size + 0.00625, z: -0.015 });
+    this.nameEl.setAttribute('position', coordStringi({
+      x: -0.2, y: this.data.size + 0.00625, z: -0.015 }));
     //layout for the labels v. keys
     this.legendEl = document.createElement('a-entity');
     this.el.appendChild(this.legendEl);
-    this.legendEl.setAttribute('position', {
+    this.legendEl.setAttribute('position', coordStringi({
       x: -0.2, y: ymarg, z: 0
-    });
+    }));
     this.legendEl.setAttribute('layout', 'type: line; margin: 0.18');
     //layout for text labels
     this.labels = document.createElement('a-entity');
@@ -467,7 +477,9 @@ AFRAME.registerComponent('plot-guide', {
     this.unHighlight = this.unHighlight.bind(this);
   },
   update: function(oldDat) {
-    var aes = this.data.aesthetic == 'size' ? 'radius' : this.data.aesthetic;
+    var aes = this.data.aesthetic == 'size' ? 'radius' : this.data.aesthetic,
+        styleStringi = AFRAME.utils.styleParser.stringify,
+        coordStringi = AFRAME.utils.coordinates.stringify;
     // wait for both if asynch update
     if(this.data.breaks.length !== this.data.labels.length) return;
     this.nameEl.setAttribute('bmfont-text', {
@@ -511,9 +523,8 @@ AFRAME.registerComponent('plot-guide', {
       var labEl = document.createElement('a-entity');
       this.labels.appendChild(labEl);
       labEl.setAttribute('scale', new Array(4).join(this.data.fontScale + ' '));
-      labEl.setAttribute('bmfont-text', {
-        text: l + '', width: 200, mode: 'nowrap', align: 'right'});
-      this.labels.appendChild(labEl);
+      labEl.setAttribute('bmfont-text', styleStringi({
+        text: l + '', width: 200, mode: 'nowrap', align: 'right'}));
     });
   },
   play: function() {
