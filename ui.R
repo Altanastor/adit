@@ -14,9 +14,6 @@ library(shinyaframe)
 shinyUI(fluidPage(
   
   tags$head(
-    # babel for EX5 compatibility
-    tags$script(src = "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.18.1/babel.min.js"),
-    #tags$script(src = "aframe.js"),
     tags$script(src = "components/ground.js"),
     tags$script(src = "shaders/skyGradient.js"),
     tags$script(src = "components/kframe.js"),
@@ -58,9 +55,11 @@ shinyUI(fluidPage(
         "and size legends.",
         "Examine your plot by grabbing it to move and rotate, stretching with",
         "two hands to scale, or releasing with with a twist to animate.",
-        "If you do not have VR, you can",
-        tags$a(href = "https://youtu.be/vy8e8zIi4qw", 
-               "view a video of Adit in action."),
+        tags$br(),
+        tags$strong(class = "videolink",
+                 "If you do not have VR, you can",
+                 tags$a(href = "https://youtu.be/vy8e8zIi4qw", 
+                        "view a video of Adit in action.")),
         tags$br(), "You can also Visit the",
         tags$a(href = "https://github.com/wmurphyrd/adit", "Adit GitHub page"), 
         "for the source code and more info.")
@@ -93,7 +92,7 @@ shinyUI(fluidPage(
       fluidRow(
         column(
           6,
-          sliderInput("sample_limit", 
+          sliderInput("sample_limit",
                       "Number of cases to plot:",
                       value = 100, min = 0, max = 150, round = TRUE)
         ),
@@ -112,7 +111,7 @@ shinyUI(fluidPage(
       HTML(readLines("html/oldbrowserwarn.HTML"))
     ),
     conditionalPanel(
-      "window.hasNativeWebVRImplementation && navigator.userAgent.includes('Chrome/56')",
+      "window.hasNativeWebVRImplementation && navigator.userAgent.includes('Chrome')",
       HTML(readLines("html/badchromium.HTML"))
     )
   ),
