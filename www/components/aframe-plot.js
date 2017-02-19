@@ -403,11 +403,17 @@ AFRAME.registerComponent('plot-axis-text', {
   setLabel: function(labEl, lab, pos) {
     // compensate for width of string(approximate)
     var numChar = this.data.axis === 'y' ? 1 : lab.length;
+    if (this.data.axis === 'x') {
+      labEl.setAttribute('rotation', '-23 -34 -75');
+      numChar = 1;
+    } 
     pos += this.offset(numChar);
     labEl.setAttribute('bmfont-text', 'text', lab);
     labEl.setAttribute('position', this.data.axis, pos);
     labEl.setAttribute('scale', 
                        new Array(4).join(this.data.fontScale + ' '));
+
+
   },
   
   offset: function(nchar) {

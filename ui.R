@@ -30,7 +30,8 @@ shinyUI(fluidPage(
     tags$script(src = "components/aframe-plot.js"),
     tags$script(src = "components/aframe-drag-drop.js"),
     tags$script(src = "components/aframe-physics-collider.js"),
-    tags$script(src = "components/aframe-monitor-camera-tweak.js"),
+    #tags$script(src = "components/aframe-monitor-camera-tweak.js"),
+    tags$script(src = "components/winners.js"),
     tags$style("#vrcontent {height: 600px;}"),
     # activate the warnings block after the window is loaded, so that they don't
     # appear erroneously for a second while shiny is initalizing
@@ -71,7 +72,8 @@ shinyUI(fluidPage(
                radioButtons("datasource", "Select a dataset:",
                             list("Anderson's Iris Data" = "iris", 
                                  "1974 Car Fuel Efficiency" = "mtcars", 
-                                 "ggplot2 Diamond Prices" = "diamonds"),
+                                 "ggplot2 Diamond Prices" = "diamonds",
+                                 "VirtuLeap Hackathon Results" = "virtuleap"),
                             selected = "iris")
         ),
         column(
@@ -105,7 +107,7 @@ shinyUI(fluidPage(
     )
   ),
   tags$div(id = "warningsContainer", style = "display: none;",
-    HTML(readLines("html/hackathon.HTML")),
+    #HTML(readLines("html/hackathon.HTML")),
     conditionalPanel(
       "!window.hasNativeWebVRImplementation", 
       HTML(readLines("html/oldbrowserwarn.HTML"))
@@ -144,11 +146,17 @@ shinyUI(fluidPage(
                   material = "color: #FFF; side: double"),
       atags$mixin(id = "datacolumn-collided", material = "color: #F2E646;"),
       atags$mixin(id = "testbox", material = "color: blue"),
-      atags$mixin(id = "testbox-collided", material = "color: green")
+      atags$mixin(id = "testbox-collided", material = "color: green"),
+      atags$other("asset-item", id = "trophy1-obj", src = "models/trophy1.obj"),
+      atags$other("asset-item", id = "trophy1-mtl", src = "models/trophy1.mtl"),
+      atags$other("asset-item", id = "trophy2-obj", src = "models/trophy2.obj"),
+      atags$other("asset-item", id = "trophy2-mtl", src = "models/trophy2.mtl"),
+      atags$other("asset-item", id = "medal-obj", src = "models/medal.obj"),
+      atags$other("asset-item", id = "medal-mtl", src = "models/medal.mtl")
     ),
     atags$entity(camera = "userHeight: 1.6", `look-controls` = "",
                  `wasd-controls` = "",
-                 `monitor-camera-tweak` = "", position = "0 0 .8"),
+                 `monitor-camera-tweak` = ""),
     # Hand conttols
     aframeEntity(
       id = "lefthand",
@@ -168,7 +176,8 @@ shinyUI(fluidPage(
       plot = "size: 0.5",
       `dynamic-body` = "shape: box;",
       sleepy = "angularDamping: 0; speedLimit: 1",
-      `collision-filter` = "group: plots;"
+      `collision-filter` = "group: plots;",
+      winners = ""
     ),
     aframeEntity(
       position = "1 1 -0.25",
