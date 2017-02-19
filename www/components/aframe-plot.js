@@ -305,7 +305,7 @@ AFRAME.registerComponent("plot-area", {
       p.setAttribute('animation', 
                      'property: position; ' + 
                        'startEvents: '+ this.POINT_UPDATED + 
-                       '; to: ' + [pdat.x, pdat.y, pdat.z].join(' ')
+                       '; to: ' + [pdat.x, -pdat.y, pdat.z].join(' ')
                     );
       if(p.hasLoaded) {
         p.emit(this.POINT_UPDATED, {}, false);
@@ -368,7 +368,7 @@ AFRAME.registerComponent('plot-axis-text', {
     // if the two properties areupdated asyncrhonously
     // and are different lengths, wait for the second
     if(this.data.labels.length !== this.data.breaks.length) return;
-    
+    if(this.data.axis === 'y') this.data.breaks = this.data.breaks.map(x => -x);
     var diff = this.labelEls.length - this.data.labels.length;
     if(diff > 0) {
       this.labelEls.splice(this.data.labels.length).forEach(function (rem){

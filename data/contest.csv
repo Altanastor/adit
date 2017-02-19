@@ -1,35 +1,35 @@
 title,votes,plays,country,name,rank,region
-Day & Night,4.0,34.0,United States,SMIS Technologies,NA,Northern America
-Paint The World,25.0,524.0,United States,Purple Pill,1,Northern America
-Dreamlands,6.0,70.0,United States,Avenue VR,NA,Northern America
-PPT VR,73.0,883.0,India,ImmersiMap Global,7,Southern Asia
-MeditateVr,1.0,38.0,United Kingdom,Sleighdogs,NA,Northern Europe
-CityViewR,4.0,274.0,Netherlands,VirtualSpeech,3,Western Europe
-Boiling Frog Story,2.0,168.0,United States,Stewart Smith,NA,Northern America
-Budget Your Future,2.0,45.0,Belgium,Irvin Hwang,NA,Western Europe
-Prototool,4.0,52.0,Netherlands,Harold Kroeze,NA,Western Europe
-html2three,1.0,37.0,United States,Yoni Binstock,NA,Northern America
-Maze War VR Multi-Player,1.0,27.0,United States,Fabien Benetou,NA,Northern America
-Dashboard VR,2.0,91.0,United States,Marcio Teixeira,NA,Northern America
-vrify - Firefox Nightly WebExtension to add VR interface to your local filesystem,14.0,87.0,Belgium,Marcio Teixeira,NA,Western Europe
-Avenue: Immersive Destination Booking,2.0,102.0,United States,Fabien Benetou,NA,Northern America
-File Manager VR,14.0,182.0,Russian Federation,Ivan Petrichenko,8,Eastern Europe
-Illy: A Primitive Intelligence,1.0,78.0,United States,Yagiz Mungan,NA,Northern America
-Explore 360™ Immersive Navigation,44.0,406.0,United States,Maud Nalpas,NA,Northern America
-"Hello, worlds!",3.0,52.0,France,Ron Dagdag,NA,Western Europe
-"Control your ""Earth Rover"" in WebVR",2.0,32.0,United States,Ron Dagdag,NA,Northern America
-WebVR Mixed Reality Video Capture for HTC Vive,2.0,30.0,United States,Ron Dagdag,NA,Northern America
-"Posture Recognition using Kinect, Azure IoT, ML and WebVR",2.0,18.0,United States,Ron Dagdag,NA,Northern America
-Let it Snow - IoT Snow Globe with Virtual Reality Web,3.0,19.0,United States,Michael Chen,NA,Northern America
-A-Frame Arcade,5.0,81.0,United States,Ben Pyrik,NA,Northern America
-Overunder Panorama Viewer,2.0,186.0,Canada,Kaito Kishi,9,Northern America
-Sphere Blast,2.0,89.0,Japan,Lee Nolan,NA,Eastern Asia
-WebVR Worlds,3.0,80.0,United States,William Murphy,NA,Northern America
-MathworldVR,19.0,261.0,Czech Republic,Roland Dubois,10,Eastern Europe
-A-Frame Video Viewer,4.0,126.0,Spain,Leonardo Malave,4,Southern Europe
-Adit: Enter the Data Mine,20.0,121.0,United States,Jay Salton,2,Northern America
-vrBIM - Infrastructure Models in WebVR,4.0,94.0,Finland,Stohio,NA,Northern Europe
-gravr - A Globally Recognized Avatar for VR on the web,32.0,894.0,United States,Ikigai f,5,Northern America
-Voice Command Component for A-Frame,2.0,45.0,United States,Valcour Games,NA,Northern America
-Virtual Art Gallery,2.0,74.0,Australia,Marpi x Archan Nair,NA,Australia and New Zealand
-Presentation Rehearsals,9.0,199.0,United Kingdom,1000 MW,NA,Northern Europe
+Paint The World,25,524,United States,Purple Pill,1,Northern America
+Adit: Enter the Data Mine,20,121,United States,Jay Salton,2,Northern America
+CityViewR,4,274,Netherlands,VirtualSpeech,3,Western Europe
+A-Frame Video Viewer,4,126,Spain,Leonardo Malave,4,Southern Europe
+gravr - A Globally Recognized Avatar for VR on the web,32,894,United States,Ikigai f,5,Northern America
+PPT VR,73,883,India,ImmersiMap Global,7,Southern Asia
+File Manager VR,14,182,Russian Federation,Ivan Petrichenko,8,Eastern Europe
+Overunder Panorama Viewer,2,186,Canada,Kaito Kishi,9,Northern America
+MathworldVR,19,261,Czech Republic,Roland Dubois,10,Eastern Europe
+Day & Night,4,34,United States,SMIS Technologies,NA,Northern America
+Dreamlands,6,70,United States,Avenue VR,NA,Northern America
+MeditateVr,1,38,United Kingdom,Sleighdogs,NA,Northern Europe
+Boiling Frog Story,2,168,United States,Stewart Smith,NA,Northern America
+Budget Your Future,2,45,Belgium,Irvin Hwang,NA,Western Europe
+Prototool,4,52,Netherlands,Harold Kroeze,NA,Western Europe
+html2three,1,37,United States,Yoni Binstock,NA,Northern America
+Maze War VR Multi-Player,1,27,United States,Fabien Benetou,NA,Northern America
+Dashboard VR,2,91,United States,Marcio Teixeira,NA,Northern America
+vrify - Firefox Nightly WebExtension to add VR interface to your local filesystem,14,87,Belgium,Marcio Teixeira,NA,Western Europe
+Avenue: Immersive Destination Booking,2,102,United States,Fabien Benetou,NA,Northern America
+Illy: A Primitive Intelligence,1,78,United States,Yagiz Mungan,NA,Northern America
+Explore 360 Immersive Navigation,44,406,United States,Maud Nalpas,6,Northern America
+"Hello, worlds!",3,52,France,Ron Dagdag,NA,Western Europe
+"Control your ""Earth Rover"" in WebVR",2,32,United States,Ron Dagdag,NA,Northern America
+WebVR Mixed Reality Video Capture for HTC Vive,2,30,United States,Ron Dagdag,NA,Northern America
+"Posture Recognition using Kinect, Azure IoT, ML and WebVR",2,18,United States,Ron Dagdag,NA,Northern America
+Let it Snow - IoT Snow Globe with Virtual Reality Web,3,19,United States,Michael Chen,NA,Northern America
+A-Frame Arcade,5,81,United States,Ben Pyrik,NA,Northern America
+Sphere Blast,2,89,Japan,Lee Nolan,NA,Eastern Asia
+WebVR Worlds,3,80,United States,William Murphy,NA,Northern America
+vrBIM - Infrastructure Models in WebVR,4,94,Finland,Stohio,NA,Northern Europe
+Voice Command Component for A-Frame,2,45,United States,Valcour Games,NA,Northern America
+Virtual Art Gallery,2,74,Australia,Marpi x Archan Nair,NA,Australia and New Zealand
+Presentation Rehearsals,9,199,United Kingdom,1000 MW,NA,Northern Europe

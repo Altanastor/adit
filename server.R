@@ -23,8 +23,9 @@ mymtcars <- mtcars %>%
          cylinders = cyl, displacement = disp, 
          "drag ratio" = drat, horsepower = hp, "miles per gallon" = mpg,
          "weight (lbs)" = wt)
-virtuleap <- read_csv("data/contest.csv")
-virtuleap <- virtuleap[complete.cases(virtuleap), ]
+virtuleap <- read_csv("data/contest.csv") %>%
+  mutate(rank = ifelse(is.na(rank), "NR", rank),
+         rank = factor(rank, levels = c(1:10, "NR")))
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
   mappings <- c(x = "Sepal.Length",
