@@ -25,7 +25,8 @@ mymtcars <- mtcars %>%
          "weight (lbs)" = wt)
 virtuleap <- read_csv("data/contest.csv") %>%
   mutate(rank = ifelse(is.na(rank), "NR", rank),
-         rank = factor(rank, levels = c(1:10, "NR")))
+         rank = factor(rank, levels = c(1:10, "NR"))) %>%
+  rename(`final rank` = rank)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
   mappings <- c(x = "Sepal.Length",

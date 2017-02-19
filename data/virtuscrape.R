@@ -44,7 +44,8 @@ apps <- lapply(links, function(x) {
 
 appsdf <- do.call(bind_rows, apps)
 appsdf <- appsdf %>%
-  mutate(name = na.omit(c(companyname, developername, teamname))) %>%
+  mutate(name = apply(data.frame(companyname, developername, teamname), 
+                      1, na.omit)) %>%
   select(-developername, -companyname, -teamname)
 #write.csv(select(appsdf, title), "ranks.csv", row.names = FALSE)
 appsdf <- left_join(appsdf, read_csv("data/ranks.csv"), by = "title")
